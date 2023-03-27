@@ -4,7 +4,14 @@
 def encryption(message,key):
     output = ''
     for i in range(len(message)):
-        ascii_message_add = ord(message[i])+ key
+        if ord(message[i]) == 32:
+            ascii_message_add = ord(' ')
+        elif 122 - ord(message[i]) < key:
+            key = key - (123 - ord(message[i]))
+            ascii_message_add = 97 + key
+        
+        elif 122 - ord(message[i]) > key:
+            ascii_message_add = ord(message[i])+ key
         output = output + chr(ascii_message_add)
     return output
 
@@ -12,8 +19,14 @@ def decryption(enc_message,key):
     output = ''
     print(len(enc_message))
     for i in range(len(enc_message)):
-        ascii_message_add = ord(enc_message[i])- key
-        output = output + chr(ascii_message_add)
+        if ord(enc_message[i]) == ' ':
+            ascii_message_add = ' '
+        elif 122 - ord(enc_message[i]) < key:
+            key = key + (123 - ord(enc_message[i]))
+            ascii_message_add = 122 - key
+        elif 122 - ord(enc_message[i]) > key:
+            ascii_message_add = ord(enc_message[i])- key
+        output = str(output) + str(chr(ascii_message_add))
     return output
 
 
@@ -25,4 +38,4 @@ if what_are_we_doing == 1:
 elif what_are_we_doing == 2:
     enc_message = input('paste your encrypted message here: ')
     key = int(input('enter your key: '))
-    print('this should be your decryped answer according to your key: ',decryption(enc_message,key))
+    print(decryption(enc_message,key))
