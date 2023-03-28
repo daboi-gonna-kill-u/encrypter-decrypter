@@ -3,30 +3,34 @@
 #the original letter with the new ascii value as text
 def encryption(message,key):
     output = ''
+    ascii_message_add = ''
     for i in range(len(message)):
+        print(ascii_message_add)
         if ord(message[i]) == 32:
             ascii_message_add = ord(' ')
-        elif 122 - ord(message[i]) < key:
-            key = key - (123 - ord(message[i]))
+        elif 124 - ord(message[i]) < key:
+            key = key - (122 - ord(message[i]))
             ascii_message_add = 97 + key
-        
-        elif 122 - ord(message[i]) > key:
+        elif 124 - ord(message[i]) > key:
             ascii_message_add = ord(message[i])+ key
-        output = output + chr(ascii_message_add)
+        output = str(output) + chr(ascii_message_add)
     return output
 
 def decryption(enc_message,key):
     output = ''
+    ascii_message_add = ''
     print(len(enc_message))
     for i in range(len(enc_message)):
         if ord(enc_message[i]) == ' ':
             ascii_message_add = ' '
-        elif 122 - ord(enc_message[i]) < key:
-            key = key + (123 - ord(enc_message[i]))
+            output = str(output) + str(ascii_message_add)
+        elif 124 - ord(enc_message[i]) < key:
+            key = key - (122 + ord(enc_message[i]))
             ascii_message_add = 122 - key
-        elif 122 - ord(enc_message[i]) > key:
+            output = str(output) + str(chr(ascii_message_add))
+        elif 124 - ord(enc_message[i]) > key:
             ascii_message_add = ord(enc_message[i])- key
-        output = str(output) + str(chr(ascii_message_add))
+            output = str(output) + str(chr(ascii_message_add))
     return output
 
 
